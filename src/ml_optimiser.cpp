@@ -7269,7 +7269,7 @@ void MlOptimiser::doOpenCLPrecalculateShiftedImagesCtfsAndInvSigma2s()
         }
         
 //        std::cerr << "Start to copy shifts to device" << std::endl;
-        cl_double2 *shiftsHost = (cl_double2 *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_shiftsHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * cl_num_trans, NULL, 0, 0, &err);
+        cl_double2 *shiftsHost = (cl_double2 *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_shiftsHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * cl_num_trans, 0, 0, 0, &err);
         if (err != CL_SUCCESS) {
             std::cerr << "Error: Failed to map buffer for transfer of shifts" << std::endl;
         }
@@ -7339,14 +7339,14 @@ void MlOptimiser::doOpenCLPrecalculateShiftedImagesCtfsAndInvSigma2s()
 
             // Store all translated variants of Fimg
             clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_Fout, cl_Fout_Host, 0, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, NULL, NULL);
-            cl_double2 *Fout = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, NULL, 0, 0, &err);
+            cl_double2 *Fout = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of shifts" << std::endl;
                 do_use_opencl = false;
             }
 
             clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_Fout_nomask, cl_Fout_nomask_Host, 0, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, NULL, NULL);
-            cl_double2 *Fout_nomask = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_nomask_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, NULL, 0, 0, &err);
+            cl_double2 *Fout_nomask = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_nomask_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of shifts" << std::endl;
                 do_use_opencl = false;
@@ -7385,14 +7385,14 @@ void MlOptimiser::doOpenCLPrecalculateShiftedImagesCtfsAndInvSigma2s()
             
             // Store all translated variants of Fimg
             clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_Fout, cl_Fout_Host, 0, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, NULL, NULL);
-            cl_double2 *Fout = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, NULL, 0, 0, &err);
+            cl_double2 *Fout = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of shifts" << std::endl;
                 do_use_opencl = false;
             }
             
             clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_Fout_nomask, cl_Fout_nomask_Host, 0, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, NULL, NULL);
-            cl_double2 *Fout_nomask = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_nomask_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, NULL, 0, 0, &err);
+            cl_double2 *Fout_nomask = (cl_double2 *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_Fout_nomask_Host, true, CL_MAP_READ, 0, sizeof(cl_double2) * cl_num_trans * cl_FDim.x * cl_FDim.y, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of shifts" << std::endl;
                 do_use_opencl = false;
@@ -8882,12 +8882,12 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
 
         if (totalOrients > 0) {
             
-        double *eulerAnglesHost = (double *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_eulerAnglesHost, true, CL_MAP_WRITE, 0, sizeof(cl_double) * maxOrients * 3, NULL, 0, 0, &err);
+        double *eulerAnglesHost = (double *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_eulerAnglesHost, true, CL_MAP_WRITE, 0, sizeof(cl_double) * maxOrients * 3, 0, 0, 0, &err);
         if (err != CL_SUCCESS) {
             std::cerr << "Error: Failed to map buffer for transfer of euler angles" << std::endl;
             do_use_opencl = false;
         }
-        char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_skipCalculationHost, true, CL_MAP_WRITE, 0, sizeof(char) * maxOrients * usedTrans, NULL, 0, 0, &err);
+        char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_skipCalculationHost, true, CL_MAP_WRITE, 0, sizeof(char) * maxOrients * usedTrans, 0, 0, 0, &err);
         memset(skipCalculation, 1, sizeof(char) * maxOrients * usedTrans);
         if (err != CL_SUCCESS) {
             std::cerr << "Error: Failed to map buffer for calculation optimisation" << std::endl;
@@ -8996,7 +8996,7 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
         clEnqueueWriteBuffer(CL_CopyToDeviceQueue, cl_local_Fctfs, true, 0, sizeof(cl_double) * projDim.x * projDim.y, ipartCTF, 0, NULL, NULL);
         clEnqueueWriteBuffer(CL_CopyToDeviceQueue, cl_Minvsigma2, true, 0, sizeof(cl_double) * projDim.x * projDim.y, minsigv2, 0, NULL, NULL);
 
-        cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * numFsTrans, NULL, 0, 0, &err);
+        cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * numFsTrans, 0, 0, 0, &err);
         if (err != CL_SUCCESS) {
             std::cerr << "Error: Failed to map buffer for transfer of Fimg shifts" << std::endl;
             do_use_opencl = false;
@@ -9217,18 +9217,18 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
                     clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_previousDiff2, cl_diff2TmpHost, 0, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, NULL, NULL);
                     clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_previousSuma2, cl_suma2TmpHost, 0, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, NULL, NULL);
                     
-                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2" << std::endl;
                         do_use_opencl = false;
                     }
-                    double *suma2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_suma2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+                    double *suma2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_suma2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of suma2" << std::endl;
                         do_use_opencl = false;
                     }
                     cl_mem cl_skipCalculationHost = (iCycle - 1) % 2 ? cl_skipCalculationHostA : cl_skipCalculationHostB;
-                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, NULL, 0, 0, &err);
+                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2 optimisations" << std::endl;
                         do_use_opencl = false;
@@ -9322,19 +9322,19 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
                     clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_previousDiff2, cl_diff2TmpHost, 0, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, NULL, NULL);
                     clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_previousSuma2, cl_suma2TmpHost, 0, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, NULL, NULL);
                     
-                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2" << std::endl;
                         do_use_opencl = false;
                     }
-                    double *suma2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_suma2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+                    double *suma2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_suma2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of suma2" << std::endl;
                         do_use_opencl = false;
                     }
                     
                     cl_mem cl_skipCalculationHost = (iCycle) % 2 ? cl_skipCalculationHostA : cl_skipCalculationHostB;
-                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, NULL, 0, 0, &err);
+                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2 optimisations" << std::endl;
                         do_use_opencl = false;
@@ -9453,14 +9453,14 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
                     
                     clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_previousDiff2, cl_diff2TmpHost, 0, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, NULL, NULL);
                     
-                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2" << std::endl;
                         do_use_opencl = false;
                     }
                     
                     cl_mem cl_skipCalculationHost = (iCycle - 1) % 2 ? cl_skipCalculationHostA : cl_skipCalculationHostB;
-                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, NULL, 0, 0, &err);
+                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2 optimisations" << std::endl;
                         do_use_opencl = false;
@@ -9537,14 +9537,14 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
                     
                     clEnqueueCopyBuffer(CL_CopyFromDeviceQueue, cl_previousDiff2, cl_diff2TmpHost, 0, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, NULL, NULL);
                     
-                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+                    double *diff2Tmp = (double *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_diff2TmpHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2" << std::endl;
                         do_use_opencl = false;
                     }
                     
                     cl_mem cl_skipCalculationHost = iCycle % 2 ? cl_skipCalculationHostA : cl_skipCalculationHostB;
-                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, NULL, 0, 0, &err);
+                    char *skipCalculation = (char *)clEnqueueMapBuffer(CL_CopyFromDeviceQueue, cl_skipCalculationHost, true, CL_MAP_READ, 0, sizeof(char) * maxOrients * usedTrans, 0, 0, 0, &err);
                     if (err != CL_SUCCESS) {
                         std::cerr << "Error: Failed to map buffer for transfer of diff2 optimisations" << std::endl;
                         do_use_opencl = false;
@@ -11014,7 +11014,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
     cl_mem cl_eulerAngles = clCreateBuffer(CL_context, CL_MEM_READ_ONLY, sizeof(cl_double) * totalOrients * 3, NULL, 0);
     
     cl_mem cl_eulerAnglesHost = clCreateBuffer(CL_context, CL_MEM_ALLOC_HOST_PTR, sizeof(cl_double) * totalOrients * 3, NULL, 0);
-    double *eulerAnglesHost = (double *)clEnqueueMapBuffer(CL_ComputeQueue, cl_eulerAnglesHost, true, CL_MAP_WRITE, 0, sizeof(cl_double) * totalOrients * 3, NULL, 0, 0, &err);
+    double *eulerAnglesHost = (double *)clEnqueueMapBuffer(CL_ComputeQueue, cl_eulerAnglesHost, true, CL_MAP_WRITE, 0, sizeof(cl_double) * totalOrients * 3, 0, 0, 0, &err);
     if (err != CL_SUCCESS) {
         std::cerr << "Error: Failed to map buffer for transfer of euler angles" << std::endl;
         do_use_opencl = false;
@@ -11314,7 +11314,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
     
     cl_mem cl_oversampled_translations = clCreateBuffer(CL_context, CL_MEM_READ_ONLY, sizeof(cl_double2) * cl_num_trans, NULL, 0);
     cl_mem cl_oversampled_translationsHost = clCreateBuffer(CL_context, CL_MEM_ALLOC_HOST_PTR, sizeof(cl_double2) * cl_num_trans, NULL, 0);
-    cl_double2 *oversampled_translationsHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_oversampled_translationsHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * cl_num_trans, NULL, 0, 0, &err);
+    cl_double2 *oversampled_translationsHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_oversampled_translationsHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * cl_num_trans, 0, 0, 0, &err);
     if (err != CL_SUCCESS) {
         std::cerr << "Error: Failed to map buffer for transfer of euler angles" << std::endl;
         do_use_opencl = false;
@@ -11537,7 +11537,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             //            elapsedTime = (double)(endMicros - startMicros) / 1000000;
             //            std::cerr << "SWS CTF scale done elapsed Time: " << elapsedTime << std::endl;
             
-            cl_double *weightsHost = (cl_double *)clEnqueueMapBuffer(CL_ComputeQueue, cl_weightsHost, true, CL_MAP_WRITE, 0, sizeof(double) * totalOrients * cl_num_trans, NULL, 0, 0, &err);
+            cl_double *weightsHost = (cl_double *)clEnqueueMapBuffer(CL_ComputeQueue, cl_weightsHost, true, CL_MAP_WRITE, 0, sizeof(double) * totalOrients * cl_num_trans, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of weights" << std::endl;
                 do_use_opencl = false;
@@ -11598,7 +11598,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
                 std::cerr << "Error: Failed to execute OpenCL sigma2 offset kernel, err: " << err << std::endl;
             }
             
-            cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, NULL, 0, 0, &err);
+            cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of Fimg shifts" << std::endl;
                 do_use_opencl = false;
@@ -11715,7 +11715,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             
             
             //            std::cerr << "Transferring Fimgshift no mask" << std::endl;
-            cl_double2 *FimgShiftNoMaskAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftNoMaskAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, NULL, 0, 0, &err);
+            cl_double2 *FimgShiftNoMaskAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftNoMaskAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to map buffer for transfer of Fimg shifts" << std::endl;
                 do_use_opencl = false;
@@ -12179,7 +12179,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
     cl_mem cl_AinvHost = clCreateBuffer(CL_context, CL_MEM_ALLOC_HOST_PTR, sizeof(cl_double) * totalOrients * 9, NULL, 0);
     clEnqueueCopyBuffer(CL_ComputeQueue, cl_Ainv, cl_AinvHost, 0, 0, sizeof(cl_double) * totalOrients * 9, 0, NULL, NULL);
     
-    double *AinvHost = (double *)clEnqueueMapBuffer(CL_ComputeQueue, cl_AinvHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * 9, NULL, 0, 0, &err);
+    double *AinvHost = (double *)clEnqueueMapBuffer(CL_ComputeQueue, cl_AinvHost, true, CL_MAP_READ, 0, sizeof(cl_double) * totalOrients * 9, 0, 0, 0, &err);
     if (err != CL_SUCCESS) {
         std::cerr << "Error: Failed to map buffer for transfer of Ainv" << std::endl;
         do_use_opencl = false;
