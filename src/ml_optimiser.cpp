@@ -1470,7 +1470,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "\t\t\t\t}\n"
         "}\n"
         "\n"
-        "kernel\tvoid\tscaleMatrix(global\tdouble*\tmatrix,\tdouble\tscaleFactor,\tint\tlimit)\t{\n"
+        "kernel\tvoid\tscaleMatrix(global\tdouble*\tmatrix,\tdouble\tscaleFactor,\tuint\tlimit)\t{\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\t\n"
         "\t\t\t\tif\t(gi\t<\tlimit)\t{\n"
@@ -1940,7 +1940,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "//\t\t\t\t}\n"
         "}\n"
         "\n"
-        "kernel\tvoid\tctfAndScaleDataPoint_TR(global\tdouble2*\tFref,\tconst\tint\tdo_ctf_correction,\tglobal\tdouble*\tctf,\tconst\tint\tdo_scale_correction,\tconst\tdouble\tscale,\tglobal\tdouble2*\tFrefOut,\tconst\tint\tfSize,\tconst\tuint\tnumOrients,\tconst\tint\tlimit)\t{\n"
+        "kernel\tvoid\tctfAndScaleDataPoint_TR(global\tdouble2*\tFref,\tconst\tint\tdo_ctf_correction,\tglobal\tdouble*\tctf,\tconst\tint\tdo_scale_correction,\tconst\tdouble\tscale,\tglobal\tdouble2*\tFrefOut,\tconst\tint\tfSize,\tconst\tuint\tnumOrients,\tconst\tuint\tlimit)\t{\n"
         "\t\t\t\t\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\t\n"
@@ -2272,7 +2272,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "}\n"
         "\n"
         "\n"
-        "kernel\tvoid\tcalculateSWSNoiseEstimate(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tsigma2_noise,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tint\tlimit)\t{\n"
+        "kernel\tvoid\tcalculateSWSNoiseEstimate(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tsigma2_noise,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tuint\tlimit)\t{\n"
         "\t\t\t\t\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\tsize_t\tlgs\t=\tget_local_size(0);\n"
@@ -2321,7 +2321,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "//\t\t\t\t\t\t\t\t}\n"
         "}\n"
         "\n"
-        "kernel\tvoid\tcalculateSWSNormCorrection(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tdata_vs_prior,\tglobal\tdouble*\tsumXA,\tglobal\tdouble*\tsumAA,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tint\tlimit)\t{\n"
+        "kernel\tvoid\tcalculateSWSNormCorrection(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tdata_vs_prior,\tglobal\tdouble*\tsumXA,\tglobal\tdouble*\tsumAA,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tuint\tlimit)\t{\n"
         "\t\t\t\t\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\tsize_t\tlgs\t=\tget_local_size(0);\n"
@@ -2374,7 +2374,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "\n"
         "//Global\tsize\there\tis\tno\tof\trotations\t*\twgs\t*\twgsPerFref\n"
         "//Sum\tfor\teach\tF\tfor\tall\ttranslations\tover\tone\torientation\n"
-        "kernel\tvoid\tcalculateSWSSum(global\tdouble*\tctf,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tMinvsigma2,\tglobal\tdouble*\tweight,\tglobal\tdouble2*\tFimgOut,\tglobal\tdouble*\tFweight,\tconst\tuint\tprojSize,\tconst\tint\torientationsPerTrans,\tconst\tint\tlimit,\tconst\tuint\tgi_limit)\t{\n"
+        "kernel\tvoid\tcalculateSWSSum(global\tdouble*\tctf,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tMinvsigma2,\tglobal\tdouble*\tweight,\tglobal\tdouble2*\tFimgOut,\tglobal\tdouble*\tFweight,\tconst\tuint\tprojSize,\tconst\tint\torientationsPerTrans,\tconst\tuint\tlimit,\tconst\tuint\tgi_limit)\t{\n"
         "\t\t\t\t\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\t\n"
@@ -3110,7 +3110,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "\t\t\t\t\n"
         "}\n"
         "\n"
-        "kernel\tvoid\tcalculateSigma2Offset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble\t*sigma2OffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tint\tlimit)\t{\n"
+        "kernel\tvoid\tcalculateSigma2Offset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble\t*sigma2OffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tuint\tlimit)\t{\n"
         "\t\t\t\t\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\t\n"
@@ -3141,7 +3141,7 @@ void MlOptimiser::initialiseCL(int rank) {
         "\t\t\t\tsigma2OffsetReturn[get_global_id(0)]\t+=\tsigma2Offset;\n"
         "}\n"
         "\n"
-        "kernel\tvoid\tcalculate2DPriorOffset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble2\t*priorOffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tint\tlimit)\t{\n"
+        "kernel\tvoid\tcalculate2DPriorOffset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble2\t*priorOffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tuint\tlimit)\t{\n"
         "\t\t\t\t\n"
         "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
         "\t\t\t\t\n"
@@ -3482,7 +3482,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "\t\t\t\t}\n"
             "}\n"
             "\n"
-            "kernel\tvoid\tscaleMatrix(global\tdouble*\tmatrix,\tdouble\tscaleFactor,\tint\tlimit)\t{\n"
+            "kernel\tvoid\tscaleMatrix(global\tdouble*\tmatrix,\tdouble\tscaleFactor,\tuint\tlimit)\t{\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\t\n"
             "\t\t\t\tif\t(gi\t<\tlimit)\t{\n"
@@ -3953,7 +3953,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "//\t\t\t\t}\n"
             "}\n"
             "\n"
-            "kernel\tvoid\tctfAndScaleDataPoint_TR(global\tdouble2*\tFref,\tconst\tint\tdo_ctf_correction,\tglobal\tdouble*\tctf,\tconst\tint\tdo_scale_correction,\tconst\tdouble\tscale,\tglobal\tdouble2*\tFrefOut,\tconst\tint\tfSize,\tconst\tuint\tnumOrients,\tconst\tint\tlimit)\t{\n"
+            "kernel\tvoid\tctfAndScaleDataPoint_TR(global\tdouble2*\tFref,\tconst\tint\tdo_ctf_correction,\tglobal\tdouble*\tctf,\tconst\tint\tdo_scale_correction,\tconst\tdouble\tscale,\tglobal\tdouble2*\tFrefOut,\tconst\tint\tfSize,\tconst\tuint\tnumOrients,\tconst\tuint\tlimit)\t{\n"
             "\t\t\t\t\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\t\n"
@@ -4286,7 +4286,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "}\n"
             "\n"
             "\n"
-            "kernel\tvoid\tcalculateSWSNoiseEstimate(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tsigma2_noise,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tint\tlimit)\t{\n"
+            "kernel\tvoid\tcalculateSWSNoiseEstimate(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tsigma2_noise,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tuint\tlimit)\t{\n"
             "\t\t\t\t\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\tsize_t\tlgs\t=\tget_local_size(0);\n"
@@ -4335,7 +4335,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "//\t\t\t\t\t\t\t\t}\n"
             "}\n"
             "\n"
-            "kernel\tvoid\tcalculateSWSNormCorrection(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tdata_vs_prior,\tglobal\tdouble*\tsumXA,\tglobal\tdouble*\tsumAA,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tint\tlimit)\t{\n"
+            "kernel\tvoid\tcalculateSWSNormCorrection(global\tdouble2*\tFref,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tweight,\tglobal\tint*\tMresol_fine,\tglobal\tdouble*\tdata_vs_prior,\tglobal\tdouble*\tsumXA,\tglobal\tdouble*\tsumAA,\tconst\tint\twgsPerFref,\tconst\tint\torientationsPerTrans,\tconst\tuint\tlimit)\t{\n"
             "\t\t\t\t\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\tsize_t\tlgs\t=\tget_local_size(0);\n"
@@ -4388,7 +4388,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "\n"
             "//Global\tsize\there\tis\tno\tof\trotations\t*\twgs\t*\twgsPerFref\n"
             "//Sum\tfor\teach\tF\tfor\tall\ttranslations\tover\tone\torientation\n"
-            "kernel\tvoid\tcalculateSWSSum(global\tdouble*\tctf,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tMinvsigma2,\tglobal\tdouble*\tweight,\tglobal\tdouble2*\tFimgOut,\tglobal\tdouble*\tFweight,\tconst\tuint\tprojSize,\tconst\tint\torientationsPerTrans,\tconst\tint\tlimit,\tconst\tuint\tgi_limit)\t{\n"
+            "kernel\tvoid\tcalculateSWSSum(global\tdouble*\tctf,\tglobal\tdouble2*\tFimg,\tglobal\tdouble*\tMinvsigma2,\tglobal\tdouble*\tweight,\tglobal\tdouble2*\tFimgOut,\tglobal\tdouble*\tFweight,\tconst\tuint\tprojSize,\tconst\tint\torientationsPerTrans,\tconst\tuint\tlimit,\tconst\tuint\tgi_limit)\t{\n"
             "\t\t\t\t\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\t\n"
@@ -4941,7 +4941,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "\t\t\t\t\n"
             "}\n"
             "\n"
-            "kernel\tvoid\tcalculateSigma2Offset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble\t*sigma2OffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tint\tlimit)\t{\n"
+            "kernel\tvoid\tcalculateSigma2Offset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble\t*sigma2OffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tuint\tlimit)\t{\n"
             "\t\t\t\t\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\t\n"
@@ -4972,7 +4972,7 @@ void MlOptimiser::initialiseCL(int rank) {
             "\t\t\t\tsigma2OffsetReturn[get_global_id(0)]\t+=\tsigma2Offset;\n"
             "}\n"
             "\n"
-            "kernel\tvoid\tcalculate2DPriorOffset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble2\t*priorOffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tint\tlimit)\t{\n"
+            "kernel\tvoid\tcalculate2DPriorOffset(global\tdouble\t*weights,\tconst\tdouble2\tpriorOffset,\tglobal\tdouble2\t*translations,\tglobal\tdouble2\t*priorOffsetReturn,\tconst\tint\ttotalOrients,\tconst\tint\tgi_limit,\tconst\tuint\tlimit)\t{\n"
             "\t\t\t\t\n"
             "\t\t\t\tsize_t\tgi\t=\tget_global_id(0);\n"
             "\t\t\t\t\n"
@@ -11402,7 +11402,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             err |= clSetKernelArg(CL_calcModelProjection2D, 3, sizeof(cl_mem), &cl_Ainv);
             err |= clSetKernelArg(CL_calcModelProjection2D, 4, sizeof(cl_mem), &cl_modelData);
             err |= clSetKernelArg(CL_calcModelProjection2D, 5, sizeof(cl_mem), &CL_iter_Proj);
-            err |= clSetKernelArg(CL_calcModelProjection2D, 6, sizeof(cl_int), &cl_limit);
+            err |= clSetKernelArg(CL_calcModelProjection2D, 6, sizeof(cl_uint), &cl_limit);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to set OpenCL kernel arguments - model projection" << std::endl;
             }
@@ -11423,7 +11423,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             err |= clSetKernelArg(CL_calculateProjections, 3, sizeof(cl_mem), &cl_Ainv);
             err |= clSetKernelArg(CL_calculateProjections, 4, sizeof(cl_mem), &cl_modelData);
             err |= clSetKernelArg(CL_calculateProjections, 5, sizeof(cl_mem), &CL_iter_Proj);
-            err |= clSetKernelArg(CL_calculateProjections, 6, sizeof(cl_int), &cl_limit);
+            err |= clSetKernelArg(CL_calculateProjections, 6, sizeof(cl_uint), &cl_limit);
             if (err != CL_SUCCESS) {
                 std::cerr << "Error: Failed to set OpenCL kernel arguments - model projection" << std::endl;
             }
@@ -11564,7 +11564,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
                 err |= clSetKernelArg(CL_calculate2DPriorOffset, 3, sizeof(cl_mem), &cl_prior_offset_return);
                 err |= clSetKernelArg(CL_calculate2DPriorOffset, 4, sizeof(cl_int), &totalOrients);
                 err |= clSetKernelArg(CL_calculate2DPriorOffset, 5, sizeof(cl_int), &totalOrients);
-                err |= clSetKernelArg(CL_calculate2DPriorOffset, 6, sizeof(cl_int), &cl_limit);
+                err |= clSetKernelArg(CL_calculate2DPriorOffset, 6, sizeof(cl_uint), &cl_limit);
                 
                 global[0] = wgs * (totalOrients / wgs + 1);
                 
@@ -11589,7 +11589,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             err |= clSetKernelArg(CL_calculateSigma2Offset, 3, sizeof(cl_mem), &cl_sigma2_offset_return);
             err |= clSetKernelArg(CL_calculateSigma2Offset, 4, sizeof(cl_int), &totalOrients);
             err |= clSetKernelArg(CL_calculateSigma2Offset, 5, sizeof(cl_int), &totalOrients);
-            err |= clSetKernelArg(CL_calculateSigma2Offset, 6, sizeof(cl_int), &cl_limit);
+            err |= clSetKernelArg(CL_calculateSigma2Offset, 6, sizeof(cl_uint), &cl_limit);
             
             global[0] = wgs * (totalOrients / wgs + 1);
             
