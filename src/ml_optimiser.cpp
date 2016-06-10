@@ -1192,7 +1192,7 @@ void MlOptimiser::initialiseCL(int rank) {
         return;
     }
     
-    CL_ComputeQueue = clCreateCommandQueue(CL_context, CL_device, CL_QUEUE_PROFILING_ENABLE, &err);
+    CL_ComputeQueue = clCreateCommandQueue(CL_context, CL_device, 0, &err);
     if (!CL_ComputeQueue)
     {
         std::cerr << "Error: Failed to create compute command queue" << std::endl;
@@ -1200,7 +1200,7 @@ void MlOptimiser::initialiseCL(int rank) {
         return;
     }
     
-    CL_CopyFromDeviceQueue = clCreateCommandQueue(CL_context, CL_device, CL_QUEUE_PROFILING_ENABLE, &err);
+    CL_CopyFromDeviceQueue = clCreateCommandQueue(CL_context, CL_device, 0, &err);
     if (!CL_CopyFromDeviceQueue)
     {
         std::cerr << "Error: Failed to create command queue to copy from device" << std::endl;
@@ -1208,7 +1208,7 @@ void MlOptimiser::initialiseCL(int rank) {
         return;
     }
     
-    CL_CopyToDeviceQueue = clCreateCommandQueue(CL_context, CL_device, CL_QUEUE_PROFILING_ENABLE, &err);
+    CL_CopyToDeviceQueue = clCreateCommandQueue(CL_context, CL_device, 0, &err);
     if (!CL_CopyToDeviceQueue)
     {
         std::cerr << "Error: Failed to create command queue to copy to device" << std::endl;
@@ -8999,7 +8999,7 @@ void MlOptimiser::doOpenCLGetSquaredDifferencesAllOrientations()
 
         cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_CopyToDeviceQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * numFsTrans, 0, 0, 0, &err);
         if (err != CL_SUCCESS) {
-            std::cerr << "Error: Failed to map buffer for transfer of Fimg shifts" << std::endl;
+            std::cerr << "Error " << err << ": Failed to map buffer for transfer of Fimg shifts in GSD" << std::endl;
             do_use_opencl = false;
         }
         memset(FimgShiftAllHost, 0, sizeof(cl_double2) * numFsTrans);
@@ -11601,7 +11601,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             
             cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
-                std::cerr << "Error: Failed to map buffer for transfer of Fimg shifts" << std::endl;
+                std::cerr << "Error " << err < ": Failed to map buffer for transfer of Fimg shifts in SWS" << std::endl;
                 do_use_opencl = false;
             }
             //            memset(FimgShiftAllHost, 0, sizeof(cl_double2) * numWGSPerProj * wgs * cl_num_trans);
@@ -11718,7 +11718,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             //            std::cerr << "Transferring Fimgshift no mask" << std::endl;
             cl_double2 *FimgShiftNoMaskAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftNoMaskAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
-                std::cerr << "Error: Failed to map buffer for transfer of Fimg shifts" << std::endl;
+                std::cerr << "Error " << err << ": Failed to map buffer for transfer of Fimg shifts no mask in SWS" << std::endl;
                 do_use_opencl = false;
             }
             //            memset(FimgShiftNoMaskAllHost, 0, sizeof(cl_double2) * numWGSPerProj * wgs * cl_num_trans);
