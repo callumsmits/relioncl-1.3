@@ -1137,8 +1137,8 @@ void MlOptimiser::initialiseCL(int rank) {
         std::cerr << "Error with clGetDeviceInfo" << std::endl;
         return;
     }
-    //This was for two cards sharing the same device...
-//    CL_maxMemAlloc = (cl_ulong)((float)CL_maxMemAlloc * 0.5);
+    //This is for two cards sharing the same device...
+    CL_maxMemAlloc = (cl_ulong)((float)CL_maxMemAlloc * 0.5);
     
     err = clGetDeviceInfo(CL_device, CL_DEVICE_IMAGE2D_MAX_WIDTH, sizeof(imageWidth), &imageWidth, NULL);
     if (err != CL_SUCCESS)

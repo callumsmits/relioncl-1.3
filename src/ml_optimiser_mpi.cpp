@@ -163,8 +163,9 @@ void MlOptimiserMpi::initialise()
                 //For now keep assigning one accelerator to one device
                 //Some wasted time on gpu, but need to use mpi to synchronise jobs
                 //Leaving it to CL driver to manage causes memory issues...
-//                if (acceleratorAllocated[hostNames[slave-1]] == 2) {
-                if (acceleratorAllocated[hostNames[slave-1]] == 1) {
+                // TODO: add code to handle this by MPI
+                if (acceleratorAllocated[hostNames[slave-1]] == 2) {
+//                if (acceleratorAllocated[hostNames[slave-1]] == 1) {
                     acceleratorAllocated[hostNames[slave-1]] = 0;
                     acceleratorCount[hostNames[slave-1]] = numAccelerators;
                 }
