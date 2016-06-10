@@ -11601,7 +11601,7 @@ void MlOptimiser::doOpenCLStoreWeightedSumsAllOrientationsCalculations(int first
             
             cl_double2 *FimgShiftAllHost = (cl_double2 *)clEnqueueMapBuffer(CL_ComputeQueue, cl_FimgShiftAllHost, true, CL_MAP_WRITE, 0, sizeof(cl_double2) * projSize * cl_num_trans, 0, 0, 0, &err);
             if (err != CL_SUCCESS) {
-                std::cerr << "Error " << err < ": Failed to map buffer for transfer of Fimg shifts in SWS" << std::endl;
+                std::cerr << "Error " << err << ": Failed to map buffer for transfer of Fimg shifts in SWS" << std::endl;
                 do_use_opencl = false;
             }
             //            memset(FimgShiftAllHost, 0, sizeof(cl_double2) * numWGSPerProj * wgs * cl_num_trans);
