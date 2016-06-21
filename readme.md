@@ -1,5 +1,5 @@
 #RelionCL - RELION accelerated with GPUs using OpenCL
-This is a port of Relion to accelerate key parts of the maximisation function using OpenCL. The code has been tested on a variety of Nvidia and AMD graphics cards successfully including:
+This is a port of Relion to accelerate key functions using OpenCL. The code has been tested on a variety of Nvidia and AMD graphics cards successfully including:
 - NVidia K80
 - NVidia K20
 - NVidia m2070
@@ -7,9 +7,11 @@ This is a port of Relion to accelerate key parts of the maximisation function us
 - NVidia GTX 1080
 - NVidia 780m
 
+The RELION programs that are accelerated are relion_refine and relion_refine_mpi, which means that 2d classification, 3d classification and 3d refinement are accelerated. The acceleration depends on the angular probability distribution and the GPU - each GTX 1080 will provide equivalent performance of approximately 40 3.3 GHz Core i7 cpu cores during 3d refinement of the betagal tutorial data.
+
 The software will detect and use all gpus within a MPI run and can operate with a heterogeneous mix of GPU's and instances running on the CPU. This allows the use of all available resources within a node. 
 
-For optimal performance, run 2x more MPI instances on each compute node than GPUs on the node. Because not all code runs on the GPU, this ensures that the GPU is fully utilised.
+For optimal performance, run 2x more MPI instances on each compute node than GPUs on the node (plus one for the mpi master which does not use the GPU). Because not all code runs on the GPU, this ensures that the GPU is fully utilised. For example, if your node has 2 GPUs, run with five MPI instances.
 
 All calculations are performed in double precision. If you wish to check the accuracy of your setup, uncomment (i.e. delete the //) line 7189 of ml_optimiser.cpp and run a refinement. The results of all calculations performed on the GPU will be compared to results from the CPU and any deviations will be reported. Additionally, by uncommenting line 7192 the speed of all calculations performed on the GPU and their relative speedup will be reported.
 
